@@ -4,4 +4,7 @@ syndaemon -k -i 0.3 -d &
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
+PATH="$PATH:~/bin"
+export PATH
+
 exec i3

@@ -5,7 +5,7 @@ Type=forking
 
 [Service]
 User=tt4
-ExecStart=/usr/bin/redshift -l55.01:82.56 -mrandr &
+ExecStart=/home/tt4/bin/redshift-starter
 Environment=DISPLAY=:0
 
 [Install]
