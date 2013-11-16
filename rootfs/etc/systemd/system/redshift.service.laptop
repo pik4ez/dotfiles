@@ -1,6 +1,6 @@
 [Unit]
 Description=Redshift
-After=network.target
+After=x.service
 Type=forking
 
 [Service]
