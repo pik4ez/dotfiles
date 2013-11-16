@@ -1,80 +1,59 @@
-set nocompatible
 
-set rtp+=~/.vim/bundle/vundle
+" vundle (plugin manager)
+set nocompatible
+set hidden
+filetype off " required for vundle, can be reset later
+
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+" vundle itself, required
 Bundle 'gmarik/vundle'
-Bundle 'kana/vim-smartinput'
-Bundle 'nevar/revim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Gundo'
+
+" custom plugins
 Bundle 'L9'
-Bundle 'dahu/SearchParty'
-Bundle 'matchit.zip'
+Bundle 'tpope/vim-fugitive'
+Bundle 'seletskiy/vim-refugi'
+Bundle 'pik4ez/vim-colors-solarized'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
+Bundle 'tsaleh/vim-matchit'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'Rainbow-Parenthesis'
-Bundle 'git@github.com:seletskiy/vim-refugi'
-Bundle 'wojtekmach/vim-rename'
-Bundle 'repeat.vim'
-Bundle 'git@github.com:seletskiy/vim-colors-solarized'
-Bundle 'surround.vim'
-"Bundle 'tpope/vim-unimpaired'
-"Bundle 'git@github.com:seletskiy/smarty.vim'
-Bundle 'git@github.com:seletskiy/nginx-vim-syntax'
-Bundle 'PHP-correct-Indenting'
-"Bundle 'git@github.com:seletskiy/Command-T'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimproc'
-Bundle 'yuku-t/unite-git'
+Bundle 'mattn/zencoding-vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'sickill/vim-pasta'
 Bundle 'bling/vim-airline'
-Bundle 'SirVer/ultisnips'
-Bundle 'epmatsw/ag.vim'
 Bundle 'Valloric/YouCompleteMe'
-"Bundle 'airblade/vim-gitgutter'
-Bundle 'mhinz/vim-signify'
+Bundle 'scrooloose/syntastic'
+Bundle 'SirVer/ultisnips'
+Bundle 'kana/vim-smartinput'
+
+" xkb-switch required
+" see https://github.com/ierton/xkb-switch
+" after installation, set chmod +x /usr/local/lib/libxkbswitch.so
 Bundle 'lyokha/vim-xkbswitch'
 
-syntax on
-filetype plugin on
-filetype indent on
+" surround settings
+let g:surround_45 = "\1function: \1(\r)"
 
-" Hack to ensure, that ~/.vim is looked first
-set rtp-=~/.vim
-set rtp^=~/.vim
+" ultisnips settings
+let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
+let g:UltiSnipsSnippetDirectories = ['Ultisnips', 'snippets']
+let g:UltiSnipsEditSplit = 'horizontal'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-set encoding=utf-8
-set printencoding=cp1251
-set timeoutlen=400
-set wildmenu
-set undofile
-set undodir=$HOME/.vim/tmp/
-set directory=$HOME/.vim/tmp/
-set ttyfast
-set autowrite
-set relativenumber
-"set hidden
-set hlsearch
-set incsearch
-set history=500
-set smartcase
-set expandtab
-set autoindent
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set backspace=2
+"youcompleteme settings
+let g:ycm_key_list_select_completion = ['<c-n>']
+let g:ycm_key_list_previous_completion = ['<c-p>']
+
+" airline settings
 set laststatus=2
-set gdefault
-set completeopt-=preview
-
-" autocomplete list numbers
-" autoinsert comment leader
-" do not wrap line after oneletter word
-set formatoptions=qrn1tol
-
+let g:airline_theme='solarized'
 let g:airline_solarized_reduced = 0
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'solarized'
+let g:airline_powerline_fonts=1
 let g:airline#extensions#whitespace#symbol = '☼'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
@@ -82,188 +61,210 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '│'
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
-let g:airline#extensions#tabline#show_buffers = 0
 
-call unite#custom#source('file,file/new,buffer,file_rec,git_cached,git_untracked',
-    \ 'matchers', 'matcher_fuzzy')
-
-function! s:unite_my_settings()
-    imap <buffer> <C-R> <Plug>(unite_redraw)
-endfunction
-
-function! s:unite_rec_git_or_file()
-    if fugitive#head() == ""
-        :Unite -start-insert file_rec
-    else
-        :Unite -start-insert git_cached git_untracked
-    endif
-endfunction
-
-let g:XkbSwitchLib = '/usr/lib/libxkbswitch.so'
+" xkb-switch settings
 let g:XkbSwitchEnabled = 1
-let mapleader="\<space>"
+let g:XkbSwitchIMappings = ['ru']
 
-let g:Powerline_symbols = 'fancy'
-let g:ycm_key_list_select_completion = ['<C-N>', '<Down>']
+set tabstop=4
+set sw=4
 
-let g:surround_102 = "\1function: \1(\r)"
-let html_no_rendering=1
+set background=light
+set t_Co=256
+colorscheme solarized
 
-cmap w!! %!sudo tee > /dev/null %
+" Directories for backup and swap files
+set backupdir=~/tmp/vim,~/tmp,/var/tmp,/tmp
+set directory=~/tmp/vim,~/tmp,/var/tmp,/tmp
 
-imap <C-T> <C-O>:call search("[)}\"'`\\]]", "c")<CR><Right>
+" line numbers
+set rnu
 
-map <C-T> :call <SID>unite_rec_git_or_file()<CR>
+" wild menu
+set wildmenu
 
-noremap <leader>v V`]
-noremap <leader>p "1p
+" hidden symbols
+set list
+set listchars=eol:¶,extends:»,tab:│·,trail:·"
+let g:solarized_visibility="low"
+let g:solarized_contrast="normal"
+let g:solarized_termcolors=256
 
-nnoremap <C-H> <C-W>h
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
+" press F2 to paste without indent magick
+set pastetoggle=<F2>
 
-nnoremap ? ?\v
-vnoremap ? ?\v
-nnoremap / /\v
-vnoremap / /\v
+" mappings
+let mapleader = "\<space>"
+inoremap <C-j> <Esc>
+inoremap <C-t> <C-o>:call search("[)}\"'`\\]]", 'c')<CR><Right>
+nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <silent> <Space><Space> :nohlsearch<CR>
+cnoremap w!! w !sudo tee % >/dev/null
+inoremap <C-L> <C-^>
+cnoremap <C-L> <C-^>
+nnoremap <Leader>c :tabnew $MYVIMRC<CR>
+noremap <F8> :%bd<CR>
 
-nnoremap <TAB> %
-vnoremap <TAB> %
+" Ctrl-U converts previous word to upper case
+inoremap <C-u> <ESC>viwgUea
 
-noremap > >>
-noremap < <<
-imap <silent> <S-TAB> <C-O><<
-vmap <silent> <TAB> >gv
-vmap <silent> <S-TAB> <gv
-vmap <silent> > >gv
-vmap <silent> < <gv
+" Ctrl-N breaks line in place of cursor
+" Ctrl-M breaks line in place of cursor and jumps to the next space
+" TODO remove space character under cursor before line breaking
+" TODO create smart mapping to break arguments list inside function definition
+nnoremap <C-n> i<CR><Esc>k$
+nnoremap <C-m> i<CR><Esc>f<space>
 
-inoremap jj <ESC>
-nnoremap j gj
-nnoremap k gk
+" CtrlP settings
+nnoremap <silent> <Leader>j :CtrlP<CR>
+nnoremap <silent> <Leader>b :CtrlPBuffer<CR>
+nnoremap <silent> <Leader>r :CtrlPBuffer<CR>
+let g:ctrlp_open_multiple_files = 't'
+let g:ctrlp_switch_buffer = 'Et'
+let g:ctrlp_max_height = 20
+let g:ctrlp_arg_map = 0
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_match_window_bottom = 1
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_user_command = {
+	\ 'types': {
+		\ 1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
+	\ },
+	\ 'fallback': 'find %s -type f'
+\ }
 
-nnoremap <F1> <ESC>
-nmap <F2> :w<CR>
-imap <F2> <ESC><F2>
-map <F12> :silent! :bufdo! :execute "e! <BAR> bd!"<CR><BAR>:tabo<CR>:enew<CR>
+" switch to previously selected tab
+let g:lasttab = 1
+nnoremap gl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
-map <Leader>1 1gt
-map <Leader>2 2gt
-map <Leader>3 3gt
-map <Leader>4 4gt
-map <Leader>5 5gt
-map <Leader>6 6gt
-map <Leader>7 7gt
-map <Leader>8 8gt
-map <Leader>9 9gt
+" tabs settings
+function! MyTabLine()
+	let s = ''
+	let wn = ''
+	let t = tabpagenr()
+	let i = 1
+	while i <= tabpagenr('$')
+		let buflist = tabpagebuflist(i)
+		let winnr = tabpagewinnr(i)
+		let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
+		let s .= '%' . i . 'T'
 
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <Esc>b <S-Left>
-cnoremap <Esc>f <S-Right>
+		let wn = tabpagewinnr(i, '$')
 
-nmap <silent> <space><space> <Plug>SearchPartyHighlightClear
+		let s .= ' '
+		let s .= i
+		let s .= (i == t ? '%m' : '')
+		let s .= ' '
 
-augroup unite_setting
-    au!
-    au FileType unite call s:unite_my_settings()
-augroup end
+		let bufnr = buflist[winnr - 1]
+		let file = bufname(bufnr)
+		let buftype = getbufvar(bufnr, 'buftype')
 
-augroup erlang_indent
-    au!
-    au FileType erlang set indentexpr=""
-    au BufEnter *.erl,rebar.config,*.hrl set ai
-augroup end
+		if buftype == 'nofile'
+			if file =~ '\/.'
+				let file = substitute(file, '.*\/\ze.', '', '')
+			endif
+		else
+			let file = fnamemodify(file, ':p:.')
 
-augroup syntax_hacks
-    au!
-    au BufEnter * hi SPM1 ctermbg=1 ctermfg=7
-    au BufEnter * hi SPM2 ctermbg=2 ctermfg=7
-    au BufEnter * hi SPM3 ctermbg=3 ctermfg=7
-    au BufEnter * hi SPM4 ctermbg=4 ctermfg=7
-    au BufEnter * hi SPM5 ctermbg=5 ctermfg=7
-    au BufEnter * hi SPM6 ctermbg=6 ctermfg=7
-augroup end
+			if strlen(file) >= 20
+				let file = substitute(file, '\(.\)[^/]\+/', '\1/', 'g')
+			endif
+		endif
 
-augroup hilight_over_80
-    au!
-    au VimResized,VimEnter * set cc= | for i in range(80, &columns > 80 ? &columns : 80) | exec "set cc+=" . i | endfor
-augroup end
+		if file == ''
+			let file = '[No Name]'
+		endif
 
-augroup dir_autocreate
-    au!
-    au BufWritePre * if !isdirectory(expand('%:h')) | call mkdir(expand('%:h'),'p') | endif
-augroup end
+		let s .= file
 
-augroup skeletons
-    au!
-    au BufNewFile *.php exec "normal I<?php\<ESC>2o"
-    au BufNewFile *.py exec "normal I# coding=utf8\<CR>\<ESC>xxo"
-    au BufNewFile rebar.config,*.app.src exec "normal I%% vim: et ts=4 sw=4 ft=erlang\<CR>\<ESC>xx"
-augroup end
+		if tabpagewinnr(i, '$') > 1
+			let s .= '('
+			let s .= (tabpagewinnr(i, '$') > 1 ? wn : '')
+			let s .= ')'
+		end
 
-augroup ft_customization
-    au!
-    au BufEnter php set noexpandtab
-    au FileType sql set ft=mysql
-    au FileType tex :e ++enc=cp1251
-    au BufEnter /data/projects/*.conf set ft=nginx
-    au BufEnter /data/projects/*.conf syn on
-    au FileType erlang set comments=:%%%,:%%,:%
-augroup end
+		let s .= ' '
 
-command! QuickFixOpenAll call QuickFixOpenAll()
-function! QuickFixOpenAll()
-    if empty(getqflist())
-        return
-    endif
-    let s:prev_val = ""
-    for d in getqflist()
-        let s:curr_val = bufname(d.bufnr)
-        if (s:curr_val != s:prev_val)
-            exec "edit " . s:curr_val
-        endif
-        let s:prev_val = s:curr_val
-    endfor
+		let i = i + 1
+	endwhile
+
+	let s .= '%#TabLineFill#%T'
+
+	return s
 endfunction
 
-fun! g:LightRoom()
-    set background=light
-    call s:ApplyColorscheme()
-    hi underlined cterm=underline
-    hi LineNr ctermfg=249 ctermbg=none
-    hi SignColumn ctermfg=240 ctermbg=none
-    hi Normal ctermbg=none
-    hi TabLine ctermfg=1 ctermbg=7 cterm=none
-    hi ColorColumn ctermbg=230
+set showtabline=2
+set tabline=%!MyTabLine()
 
-    let g:airline_solarized_bg='light'
-endfun
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 
-fun! g:DarkRoom()
-    set background=dark
-    call s:ApplyColorscheme()
-    hi underlined cterm=underline
-    hi LineNr ctermfg=238 ctermbg=none
-    hi SignColumn ctermfg=240 ctermbg=none
-    hi Normal ctermbg=none
-    hi ColorColumn ctermbg=235
+set history=50 " keep 50 lines of command line history
+set ruler      " show the cursor position all the time
+set showcmd    " display incomplete commands
+set incsearch  " do incremental searching
 
-    let g:airline_solarized_bg='dark'
-endfun
+" Don't use Ex mode, use Q for formatting
+noremap Q gq
 
-fun! s:ApplyColorscheme()
-    let g:solarized_termcolors = 16
-    let g:solarized_contrast = 'high'
-    colorscheme solarized
-    hi! link WildMenu PmenuSel
-    hi erlangEdocTag cterm=bold ctermfg=14
-    hi erlangFunHead cterm=bold ctermfg=4
-endfun
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
+endif
 
-if system('background') == "light\n"
-    call g:LightRoom()
-else
-    call g:DarkRoom()
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+set autoindent
+
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+"filetype plugin indent on
+filetype indent on
+filetype on
+filetype plugin on
+
+augroup vimrcEx
+	au!
+
+	" For all text files set 'textwidth' to 120 characters.
+	autocmd FileType text setlocal textwidth=120
+
+	" When editing a file, always jump to the last known cursor position.
+	" Don't do it when the position is invalid or when inside an event handler
+	" (happens when dropping a file on gvim).
+	" Also don't do it when the mark is in the first line, that is the default
+	" position when opening a file.
+	autocmd BufReadPost *
+		\ if line("'\"") > 1 && line("'\"") <= line("$") |
+		\ exe "normal! g`\"" |
+		\ endif
+augroup END
+
+" Python specific settings
+augroup python
+	au!
+	autocmd FileType python setlocal expandtab
+	autocmd FileType python setlocal softtabstop=4
+augroup END
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+	command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 endif

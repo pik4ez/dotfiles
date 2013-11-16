@@ -1,0 +1,10 @@
+[Unit]
+Description=X
+
+[Service]
+ExecStart=/bin/sh /usr/bin/startx
+User=tt4
+WorkingDirectory=/home/tt4/
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+[user]
+	email = {{EMAIL}}
+	name = {{NAME}}
+[push]
+	default = simple

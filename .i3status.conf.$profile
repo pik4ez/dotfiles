@@ -1,0 +1,15 @@
+general {
+        colors = true
+        interval = 5
+}
+
+order += "battery 0"
+order += "tztime local"
+
+battery 0 {
+        format = "%status %percentage %remaining"
+}
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
+}
