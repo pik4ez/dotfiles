@@ -1,9 +1,9 @@
 [Unit]
 Description=Redshift
 After=x.service
-Type=forking
 
 [Service]
+Type=forking
 User=tt4
 ExecStart=/home/tt4/bin/redshift-starter
 Environment=DISPLAY=:0

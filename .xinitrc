@@ -4,7 +4,7 @@ syndaemon -k -i 0.3 -d &
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-PATH="$PATH:~/bin"
-export PATH
+export SHELL=/usr/bin/zsh
+export PATH=/home/$(whoami)/bin/:$PATH
 
 exec i3

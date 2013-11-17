@@ -5,6 +5,8 @@ URxvt.boldFont: xft:Monaco:style=Bold:pixelsize=12
 
 URxvt.letterSpace: 0
 
+URxvt.loginShell: true
+
 URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 
