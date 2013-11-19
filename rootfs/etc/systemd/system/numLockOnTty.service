@@ -1,0 +1,10 @@
+[Unit]
+Description=numlockOnTty
+After=systemd-logind.service
+
+[Service]
+ExecStart=/usr/bin/numlockOnTty
+
+[Install]
+WantedBy=multi-user.target
+
