@@ -1,9 +1,9 @@
 [Unit]
 Description=Redshift
 After=network.target
-Type=forking
 
 [Service]
+Type=forking
 User=tt4
 ExecStart=/usr/bin/redshift -l55.01:82.56 -mrandr &
 Environment=DISPLAY=:0

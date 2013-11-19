@@ -56,7 +56,7 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=red,fg=white,bold'
 
 # key mappings
 autoload zkbd
-source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+#source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 
 [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" history-substring-search-up
 [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" history-substring-search-down
