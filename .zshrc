@@ -48,6 +48,7 @@ plugins=(git history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
+export PATH="/home/$(whoami)/bin/:$PATH"
 export EDITOR=vim
 
 # history search settings
