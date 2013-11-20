@@ -49,6 +49,9 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:ycm_key_list_select_completion = ['<c-n>']
 let g:ycm_key_list_previous_completion = ['<c-p>']
 
+" syntastic settings
+let g:syntastic_python_checkers = ['python', 'py3kwarn']
+
 " airline settings
 set laststatus=2
 let g:airline_theme='solarized'
