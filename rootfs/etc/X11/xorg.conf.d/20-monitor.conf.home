@@ -6,6 +6,8 @@ EndSection
 Section "Device"
 	Identifier "Device0"
 	Driver "radeon"
+	Option "HWCursor" "off"
+	Option "SWCursor" "on"
 EndSection
 
 Section "Screen"
