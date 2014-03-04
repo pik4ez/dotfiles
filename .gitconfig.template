@@ -1,5 +1,7 @@
 [user]
 	email = {{EMAIL}}
 	name = {{NAME}}
+[color]
+	sh = auto
 [push]
 	default = simple
