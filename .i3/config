@@ -139,9 +139,8 @@ assign [class="Google-chrome"] 2
 bindsym $mod+bracketright [instance="irssi"] focus
 bindsym $mod+backslash [instance="mutt"] focus
 
-# custom quick key: $mod+Shift+u to bind, $mod+u to go
-bindsym $mod+Shift+u mark quick_u
-bindsym $mod+u [con_mark="quick_u"] focus
+# $mod+u focuses browser workspace (2)
+bindsym $mod+u workspace 2
 
 # custom quick key: $mod+Shift+i to bind, $mod+p to go
 bindsym $mod+Shift+i mark quick_i
@@ -155,6 +154,7 @@ bindsym $mod+o [con_mark="quick_o"] focus
 bindsym $mod+Shift+p mark quick_p
 bindsym $mod+p [con_mark="quick_p"] focus
 
+bindsym $mod+F5 exec notify-send "$(mpc current)" # show current track in notification popup
 bindsym $mod+F7 exec mpc prev # previous track
 bindsym $mod+F8 exec mpc next # next track
 bindsym $mod+F9 exec mpc toggle # play/pause
