@@ -4,6 +4,7 @@ URxvt.font: xft:Monaco:pixelsize=12
 URxvt.boldFont: xft:Monaco:style=Bold:pixelsize=12
 
 URxvt.letterSpace: 0
+URxvt.internalBorder: 0
 
 URxvt.loginShell: true
 
