@@ -1,4 +1,3 @@
-
 " vundle (plugin manager)
 set nocompatible
 set hidden
@@ -136,11 +135,11 @@ let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_user_command = {
-	\ 'types': {
-		\ 1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
-	\ },
-	\ 'fallback': 'find %s -type f'
-\ }
+			\ 'types': {
+			\ 1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
+			\ },
+			\ 'fallback': 'find %s -type f'
+			\ }
 
 " switch to previously selected tab
 let g:lasttab = 1
@@ -158,14 +157,11 @@ function! MyTabLine()
 		let winnr = tabpagewinnr(i)
 		let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
 		let s .= '%' . i . 'T'
-
 		let wn = tabpagewinnr(i, '$')
-
 		let s .= ' '
 		let s .= i
 		let s .= (i == t ? '%m' : '')
 		let s .= ' '
-
 		let bufnr = buflist[winnr - 1]
 		let file = bufname(bufnr)
 		let buftype = getbufvar(bufnr, 'buftype')
@@ -220,14 +216,14 @@ noremap Q gq
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-  set mouse=a
+	set mouse=a
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
+	syntax on
+	set hlsearch
 endif
 
 set autoindent
@@ -253,9 +249,9 @@ augroup vimrcEx
 	" Also don't do it when the mark is in the first line, that is the default
 	" position when opening a file.
 	autocmd BufReadPost *
-		\ if line("'\"") > 1 && line("'\"") <= line("$") |
-		\ exe "normal! g`\"" |
-		\ endif
+				\ if line("'\"") > 1 && line("'\"") <= line("$") |
+				\ exe "normal! g`\"" |
+				\ endif
 augroup END
 
 " Python specific settings
@@ -263,6 +259,13 @@ augroup python
 	au!
 	autocmd FileType python setlocal expandtab
 	autocmd FileType python setlocal softtabstop=4
+augroup END
+
+" Erlang specific settings
+augroup erlang
+	au!
+	autocmd FileType erlang setlocal noexpandtab
+	autocmd FileType erlang setlocal ts=4 sts=4 sw=4 noet
 augroup END
 
 " Convenient command to see the difference between the current buffer and the
