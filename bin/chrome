@@ -1,1 +1,1 @@
-google-chrome --audio-buffer-size=4096
+google-chrome-stable --audio-buffer-size=4096

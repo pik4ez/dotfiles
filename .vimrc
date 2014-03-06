@@ -36,6 +36,9 @@ Bundle 'lyokha/vim-xkbswitch'
 " surround settings
 let g:surround_45 = "\1function: \1(\r)"
 
+" syntastic settings
+let g:syntastic_always_populate_loc_list = 1
+
 " ultisnips settings
 let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
 let g:UltiSnipsSnippetDirectories = ['Ultisnips', 'snippets']
@@ -266,6 +269,12 @@ augroup erlang
 	au!
 	autocmd FileType erlang setlocal noexpandtab
 	autocmd FileType erlang setlocal ts=4 sts=4 sw=4 noet
+augroup END
+
+augroup go
+	au!
+	autocmd FileType go setlocal noet
+	autocmd BufWritePost *.go Fmt
 augroup END
 
 " Convenient command to see the difference between the current buffer and the
