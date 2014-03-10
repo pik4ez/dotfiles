@@ -28,6 +28,10 @@ Bundle 'scrooloose/syntastic'
 Bundle 'SirVer/ultisnips'
 Bundle 'kana/vim-smartinput'
 
+" Go helper. gocode package must be installed:
+" go get github.com/nsf/gocode
+Bundle 'Blackrush/vim-gocode'
+
 " xkb-switch required
 " see https://github.com/ierton/xkb-switch
 " after installation, set chmod +x /usr/local/lib/libxkbswitch.so
