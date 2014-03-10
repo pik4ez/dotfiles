@@ -5,7 +5,8 @@ xbindkeys
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 export SHELL=/bin/zsh
-export PATH=/home/$(whoami)/bin/:$PATH
+export GOPATH=$HOME/gocode
+export PATH=/home/$(whoami)/bin/:$GOPATH/bin:$PATH
 export DISPLAY=:0
 
 numlockx &

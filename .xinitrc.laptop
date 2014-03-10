@@ -5,8 +5,8 @@ xbindkeys
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-export SHELL=/usr/bin/zsh
-export GOPATH=/home/$(whoami)/work/goworkspace
+export SHELL=/bin/zsh
+export GOPATH=$HOME/gocode
 export PATH=/home/$(whoami)/bin/:$GOPATH/bin:$PATH
 export DISPLAY=:0
 
