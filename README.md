@@ -1,11 +1,17 @@
-Installation
-============
+## Installation ##
 
 Run `sudo -E profile=work|home|laptop ./dotfiles install` to install all
 configuration file for specified profile.
 
-Agreements
-==========
+### tt4 specific: laptop ###
+
+Additional packages installed:
+* laptop-mode-tools (https://aur.archlinux.org/packages/laptop-mode-tools/); see NOTE below
+* acpi-eeepc-generic (https://aur.archlinux.org/packages/acpi-eeepc-generic/)
+
+NOTE: for Asus Super Hybrid Engine (watafak wiz da name?) to work it's also required eeepc_laptop kernel module to be loaded. For now it is disabled by default. Grub option <code>acpi_osi=Linux</code> can be used to enable it (see https://bugs.archlinux.org/task/17616).
+
+## Agreements ##
 
 Directory structure is the same that under home dir (~/). Exception is rootfs/
 directory, that contains global system configuration files that are located
