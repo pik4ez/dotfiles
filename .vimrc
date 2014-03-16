@@ -261,17 +261,21 @@ augroup vimrcEx
 				\ endif
 augroup END
 
+" PHP specific settings
+augroup php
+	au!
+	autocmd FileType php setlocal ts=4 sts=4 sw=4 et
+augroup END
+
 " Python specific settings
 augroup python
 	au!
-	autocmd FileType python setlocal expandtab
-	autocmd FileType python setlocal softtabstop=4
+	autocmd FileType python setlocal sts=4 et
 augroup END
 
 " Erlang specific settings
 augroup erlang
 	au!
-	autocmd FileType erlang setlocal noexpandtab
 	autocmd FileType erlang setlocal ts=4 sts=4 sw=4 noet
 augroup END
 
