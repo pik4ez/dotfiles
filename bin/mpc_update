@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nohup /home/$(whoami)/bin/mpc_update_helper > /dev/null &

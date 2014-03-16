@@ -1,0 +1,17 @@
+#!/bin/bash
+
+mpc | grep Updating &> /dev/null
+r=$?
+
+if [ $r -eq 1 ]; then
+	mpc update &> /dev/null
+	r=0
+fi
+
+while [ $r -eq 0 ]; do
+	mpc | grep Updating &> /dev/null
+	r=$?
+	sleep 1
+done
+
+notify-send "mpc database updated"
