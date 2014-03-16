@@ -1,6 +1,8 @@
 # Aliases
 alias g='git'
 compdef g=git
+alias gcl='git clone'
+compdef gcl='git clone'
 alias gs='git status'
 compdef _git gs=git-status
 alias gst='git stash'
@@ -49,7 +51,6 @@ alias gba='git branch -a'
 compdef _git gba=git-branch
 alias gcount='git shortlog -sn'
 compdef gcount=git
-alias gcl='git config --list'
 alias gcp='git cherry-pick'
 compdef _git gcp=git-cherry-pick
 alias gl='git log --oneline --decorate --all --graph'
