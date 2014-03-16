@@ -1,0 +1,72 @@
+Section "ServerLayout"
+    Identifier     "zomg"
+    Screen       0 "Screen0"
+    Screen       1 "Screen1" rightOf "Screen0"
+    Option         "Xinerama" "1"
+EndSection
+
+Section "Files"
+	ModulePath   "/usr/lib/xorg/modules"
+	FontPath     "/usr/share/fonts/misc/"
+	FontPath     "/usr/share/fonts/TTF/"
+	FontPath     "/usr/share/fonts/OTF/"
+	FontPath     "/usr/share/fonts/Type1/"
+	FontPath     "/usr/share/fonts/100dpi/"
+	FontPath     "/usr/share/fonts/75dpi/"
+EndSection
+
+Section "Module"
+	Load  "glx"
+EndSection
+
+# Section "InputDevice"
+# 	Identifier  "Mouse0"
+# 	Driver      "mouse"
+# 	Option      "Protocol" "auto"
+# 	Option      "Device" "/dev/input/mice"
+# 	Option      "ZAxisMapping" "4 5 6 7"
+# EndSection
+
+Section "Monitor"
+    Identifier     "Monitor0"
+EndSection
+
+Section "Monitor"
+    Identifier     "Monitor1"
+EndSection
+
+Section "Device"
+    Identifier     "nvidia0"
+    Driver         "nvidia"
+    BusID          "PCI:1:0:0"
+    Screen         0
+    Option         "UseEdidDpi" "False"
+    Option         "DPI" "95 x 94"
+    Option         "HWCursor" "false"
+    Option         "SWCursor" "true"
+EndSection
+
+Section "Device"
+    Identifier     "nvidia1"
+    Driver         "nvidia"
+    BusID          "PCI:1:0:0"
+    Screen         1
+    Option         "UseEdidDpi" "False"
+    Option         "DPI" "95 x 94"
+EndSection
+
+Section "Screen"
+    Identifier     "Screen0"
+    Device         "nvidia0"
+    Monitor        "Monitor0"
+    DefaultDepth   24
+EndSection
+
+Section "Screen"
+    Identifier     "Screen1"
+    Device         "nvidia1"
+    Monitor        "Monitor1"
+    DefaultDepth   24
+    Option         "MetaModes" "DFP-1: nvidia-auto-select { Rotation=left }"
+EndSection
+
