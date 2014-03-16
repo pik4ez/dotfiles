@@ -2,7 +2,6 @@
 alias g='git'
 compdef g=git
 alias gcl='git clone'
-compdef gcl='git clone'
 alias gs='git status'
 compdef _git gs=git-status
 alias gst='git stash'
