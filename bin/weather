@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "line1\nline2<span class=\"value__main\">&minus;0,8</span>lala\nline3" |
+awk 'match($0, /<span.*value__main.*>([^<]+)<\/span.*/, r) sub(/&minus;/, "—", r[1]) { print r[1] }'
