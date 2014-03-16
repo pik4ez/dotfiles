@@ -1,0 +1,11 @@
+[Unit]
+Description=Chrome web browser 
+After=x.target network.target 
+
+[Service]
+User=tt4
+ExecStart=/usr/bin/google-chrome-stable --audio-buffer-size=4096
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Redshift
+After=x.service
+
+[Service]
+Type=forking
+User=tt4
+ExecStart=/usr/bin/redshift-starter.sh
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target

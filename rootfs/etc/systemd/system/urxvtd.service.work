@@ -1,0 +1,9 @@
+[Unit]
+Description=Urxvt daemon
+
+[Service]
+User=tt4
+ExecStart=/usr/bin/urxvtd
+
+[Install]
+WantedBy=multi-user.target

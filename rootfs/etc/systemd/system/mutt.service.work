@@ -1,0 +1,10 @@
+[Unit]
+Description=Mutt mail client
+After=network.target x.service
+
+[Service]
+User=tt4
+ExecStart=/usr/bin/urxvt -name mutt -e mutt
+
+[Install]
+WantedBy=multi-user.target

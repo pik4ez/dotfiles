@@ -1,0 +1,10 @@
+[Unit]
+Description=Bitlbee
+After=x.target network.target 
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/bitlbee -D
+
+[Install]
+WantedBy=multi-user.target
