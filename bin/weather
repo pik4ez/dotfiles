@@ -5,3 +5,6 @@ curl -s pogoda.ngs.ru |
 		match($0, /<span class="value__main">([^<]+)<\/span>/, a) {
 			sub("&minus;", "—", a[1]); print a[1]
 		}'
+
+# TODO rewrite using json api:
+# http -b pogoda.ngs.ru/json method=getForecast params:='["meteo_lenina_12_megafon","nsk"]'
