@@ -1,10 +1,23 @@
 #!/bin/sh
 
-curl -s pogoda.ngs.ru |
-	awk '
-		match($0, /<span class="value__main">([^<]+)<\/span>/, a) {
-			sub("&minus;", "—", a[1]); print a[1]
-		}'
+# TODO finish json version
+# json=$(curl -s --data-binary '{ "josnrpc":"2.0", "method":"getForecast", "id":"dniwe", "params": {"name":"meteo_lenina_12_megafon", "city":"nsk"} }' -H 'content-type: application/json;' pogoda.ngs.ru/json)
+# 
+# if [[ $json == *\"result\":null* ]]; then
+# 	# source returned no result
+# 	echo 'nomor weza'
+# 	exit 1
+# fi
 
-# TODO rewrite using json api:
-# http -b pogoda.ngs.ru/json method=getForecast params:='["meteo_lenina_12_megafon","nsk"]'
+src=$(curl -s pogoda.ngs.ru |
+	awk '
+		match($0, /<span class="value__main">([^<]+)<\/span>/, m) {
+			sub("&minus;", "—", m[1]); t=m[1]
+		}
+		match($0, /<span class="value-description">([^<]+)<\/span>/, m) {
+			f=m[1]
+			print t " " f
+		}
+	')
+
+echo $src
