@@ -12,11 +12,10 @@
 src=$(curl -s pogoda.ngs.ru |
 	awk '
 		match($0, /<span class="value__main">([^<]+)<\/span>/, m) {
-			sub("&minus;", "—", m[1]); t=m[1]
+			sub("&minus;", "—", m[1]); print m[1]
 		}
 		match($0, /<span class="value-description">([^<]+)<\/span>/, m) {
-			f=m[1]
-			print t " " f
+			print m[1]
 		}
 	')
 
