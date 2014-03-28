@@ -282,7 +282,6 @@ augroup END
 augroup go
 	au!
 	autocmd FileType go setlocal noet
-	autocmd BufWritePost *.go Fmt
 augroup END
 
 " Convenient command to see the difference between the current buffer and the
