@@ -1,0 +1,15 @@
+default=0
+timeout=1
+
+# (0) Windows XP
+menuentry "Windows XP" {
+	set root=(hd0,3)
+	chainloader +1
+}
+
+# (1) Arch Linux
+menuentry "Arch Linux" {
+	set root=(hd0,1)
+	linux /vmlinuz-linux root=/dev/sda2 acpi_osi=Linux
+	initrd /initramfs-linux.img
+}
