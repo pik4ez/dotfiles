@@ -1,0 +1,8 @@
+set timeout=3
+
+menuentry "Arch Linux" {
+    echo 'Loading Arch Linux pkg-linux kernel ...'
+    linux /vmlinuz-linux root=/dev/sdb2 rw zfs=zroot2 zfs_force=1
+    echo 'Loading Arch Linux pkg-linux kernel initramfs ...'
+    initrd /initramfs-linux.img
+}
