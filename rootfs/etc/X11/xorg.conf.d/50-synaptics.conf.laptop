@@ -10,7 +10,7 @@ Section "InputClass"
 # http://who-t.blogspot.com/2010/11/how-to-ignore-configuration-errors.html
         MatchDevicePath "/dev/input/event*"
 # added by tt4
-        Option "ClickTime" "7"
+        Option "ClickTime" "2"
         Option "VertEdgeScroll" "1"
         Option "HorizEdgeScroll" "1"
         Option "VertTwoFingerScroll" "1"
