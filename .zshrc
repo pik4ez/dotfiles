@@ -48,9 +48,7 @@ plugins=(git history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
-export GOPATH=$HOME/gocode
-export PATH="/home/$(whoami)/bin/:$GOPATH/bin:$PATH"
-export EDITOR=vim
+export PATH=/home/$(whoami)/bin:/home/$(whoami)/gocode/bin:$PATH
 
 # history search settings
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=cyan,fg=white,bold'
