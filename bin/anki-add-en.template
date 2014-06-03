@@ -1,6 +1,7 @@
 #!/bin/bash
 
 notify-send "$(echo $(xclip -o) \
-	| runki --user={{ANKI_USERNAME}} \
+	| runki --lang=en-ru \
+	--user={{ANKI_USERNAME}} \
 	--pass='{{ANKI_PASSWORD}}' \
 	--deck={{ANKI_DECK_EN}})"
