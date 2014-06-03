@@ -48,7 +48,8 @@ plugins=(git history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH="/home/$(whoami)/bin/:$PATH"
+export GOPATH=$HOME/gocode
+export PATH="/home/$(whoami)/bin/:$GOPATH/bin:$PATH"
 export EDITOR=vim
 
 # history search settings
