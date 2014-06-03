@@ -159,6 +159,10 @@ bindsym $mod+F7 exec mpc prev # previous track
 bindsym $mod+F8 exec mpc next # next track
 bindsym $mod+F9 exec mpc toggle # play/pause
 
+# anki / runki
+bindsym $mod+F3 exec anki-add-de
+bindsym $mod+F4 exec anki-add-en
+
 # bar settings
 bindsym $mod+t bar hidden_state toggle
 bar {
