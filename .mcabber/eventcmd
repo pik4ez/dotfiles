@@ -1,0 +1,11 @@
+#!/bin/bash
+
+EVENT_TYPE=$1
+EVENT_SUBTYPE=$2
+JID=$3
+FILE=$4
+
+if [ "$EVENT_TYPE" == "MSG" ] && [ "$EVENT_SUBTYPE" == "IN" ]
+then
+	notify-send -t 2 "${JID} wants in djubber"
+fi
