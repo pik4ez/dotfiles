@@ -1,0 +1,11 @@
+[Unit]
+Description=Mcabber jabber client
+After=network.target x.service
+
+[Service]
+User=tt4
+ExecStart=/usr/bin/urxvt -name mcabber -e mcabber
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target

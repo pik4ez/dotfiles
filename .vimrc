@@ -42,6 +42,8 @@ let g:surround_45 = "\1function: \1(\r)"
 
 " syntastic settings
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_python_checkers = ['python', 'py3kwarn']
+autocmd BufNewFile,BufRead /home/tt4/mnt/* let g:syntastic_php_phpcs_args='--report=csv --standard=/home/tt4/work/ngs_standards/CodeSniffer/Standards/NGS/'
 
 " ultisnips settings
 let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
@@ -54,9 +56,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "youcompleteme settings
 let g:ycm_key_list_select_completion = ['<c-n>']
 let g:ycm_key_list_previous_completion = ['<c-p>']
-
-" syntastic settings
-let g:syntastic_python_checkers = ['python', 'py3kwarn']
 
 " airline settings
 set laststatus=2
@@ -140,7 +139,7 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_match_window_bottom = 1
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules)$'
 let g:ctrlp_user_command = {
 			\ 'types': {
 			\ 1: ['.git', 'cd %s && git ls-files . -co --exclude-standard'],
