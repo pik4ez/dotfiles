@@ -1,6 +1,7 @@
 " vundle (plugin manager)
 set nocompatible
 set hidden
+set expandtab
 filetype off " required for vundle, can be reset later
 
 set rtp+=~/.vim/bundle/vundle/
@@ -258,18 +259,6 @@ augroup vimrcEx
 				\ if line("'\"") > 1 && line("'\"") <= line("$") |
 				\ exe "normal! g`\"" |
 				\ endif
-augroup END
-
-" PHP specific settings
-augroup php
-	au!
-	autocmd FileType php setlocal ts=4 sts=4 sw=4 et
-augroup END
-
-" Python specific settings
-augroup python
-	au!
-	autocmd FileType python setlocal sts=4 et
 augroup END
 
 " Erlang specific settings
