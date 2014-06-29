@@ -70,6 +70,11 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '│'
 let g:airline#extensions#tabline#right_sep = ''
 let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline#extensions#syntastic#enabled = 1
+function! AirlineFixLength(...)
+    let w:airline_section_z = airline#section#create(['%3p%%', 'linenr', '%3v'])
+endfunction
+call airline#add_statusline_func('AirlineFixLength')
 
 " xkb-switch settings
 let g:XkbSwitchEnabled = 1
@@ -261,10 +266,14 @@ augroup vimrcEx
 				\ endif
 augroup END
 
-" Erlang specific settings
 augroup erlang
 	au!
 	autocmd FileType erlang setlocal ts=4 sts=4 sw=4 noet
+augroup END
+
+augroup php
+    au!
+    autocmd FileType php setlocal colorcolumn=80,120
 augroup END
 
 augroup go
