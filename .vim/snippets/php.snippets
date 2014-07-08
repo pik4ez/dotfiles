@@ -220,23 +220,32 @@ endsnippet
 
 
 snippet var "public class variable with doc-block comment"
-/** @var $2 ${30: ${31:description}} */
-public ${1:${2:type} }$${3:var}${4: = ${5:value}};
-$0
+/**${30:
+ * ${31:description}
+ *}
+ * @var ${4:type}
+ */
+public $${1:var}${2: = ${3:value}};$0
 endsnippet
 
 
 snippet varp "protected class variable with doc-block comment"
-/** @var $2 ${30: ${31:description}} */
-protected ${1:${2:type} }$_${3:var}${4: = ${5:value}};
-$0
+/**${30:
+ * ${31:description}
+ *}
+ * @var ${4:type}
+ */
+protected $_${1:var}${2: = ${3:value}};$0
 endsnippet
 
 
 snippet varpp "private class variable with doc-block comment"
-/** @var $2 ${30: ${31:description}} */
-private ${1:${2:type} }$_${3:var}${4: = ${5:value}};
-$0
+/**${30:
+ * ${31:description}
+ *}
+ * @var ${4:type}
+ */
+private $_${1:var}${2: = ${3:value}};$0
 endsnippet
 
 

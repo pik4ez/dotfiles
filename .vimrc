@@ -44,7 +44,7 @@ let g:surround_45 = "\1function: \1(\r)"
 " syntastic settings
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_python_checkers = ['python', 'py3kwarn']
-autocmd BufNewFile,BufRead /home/tt4/mnt/* let g:syntastic_php_phpcs_args='--report=csv --standard=/home/tt4/work/ngs_standards/CodeSniffer/Standards/NGS/'
+autocmd BufNewFile,BufRead /home/tt4/mnt/* let g:syntastic_php_phpcs_args='--encoding=utf-8 --report=csv --standard=/home/tt4/work/ngs_standards/CodeSniffer/Standards/NGS/'
 
 " ultisnips settings
 let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
