@@ -17,8 +17,10 @@ URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,autocom
 URxvt.url-select.launcher:  firefox
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
-URxvt.keysym.M-Escape:      perl:keyboard-select:activate
-URxvt.keysym.M-s:           perl:keyboard-select:search
+
+!! keyboard-select
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
 
 !! autocomplete-all-the-things
 URxvt.keysym.M-slash:    perl:aAtt:skeleton-WORD-complete

@@ -24,6 +24,8 @@ Plug 'edsono/vim-matchit', { 'for': 'html' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc', { 'do': 'make' }
+Plug 'yuku-t/unite-git'
 Plug 'sickill/vim-pasta'
 Plug 'bling/vim-airline'
 Plug 'Valloric/YouCompleteMe'
@@ -51,18 +53,29 @@ let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '-i --line-numbers --nocolor --nogroup --hidden'
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates = 200
+
+call unite#custom#source(
+\ 'file,file/new,buffer,file_rec,file_rec/async,git_cached,git_untracked',
+\ 'matchers', 'matcher_fuzzy'
+\ )
+call unite#custom#source(
+\ 'file,file/new,buffer,file_rec,file_rec/async,git_cached,git_untracked',
+\ 'ignore_pattern', '\<nodejs\>\|\<node_modules\>'
+\ )
 call unite#custom#profile('default', 'context', {
 \   'start_insert': 1,
 \   'direction': 'botright',
 \ })
-call unite#custom#alias('ash_review', 'split', 'ls')
-map <C-C> :UniteClose<CR>
-nmap <Leader>j :Unite file<CR>
+nmap <Leader>j :Unite -hide-source-names git_cached git_untracked<CR>
 nmap <Leader>b :Unite buffer<CR>
 nmap <Leader>a :Unite ash_inbox<CR>
 nmap <Leader>r :UniteResume<CR>
-imap <silent><buffer><expr> <C-T> unite#do_action('split')
-imap <buffer> <F5> <Plug>(unite_redraw)
+function! s:unite_my_settings()
+    call unite#custom#alias('ash_review', 'split', 'ls')
+    imap <silent><buffer><expr> <C-P> unite#do_action('split')
+    imap <buffer> <C-J> <Plug>(unite_select_next_line)
+    imap <buffer> <C-K> <Plug>(unite_select_previous_line)
+endfunction
 
 " surround settings
 let g:surround_45 = "\1function: \1(\r)"
@@ -289,6 +302,11 @@ augroup go
     au!
     autocmd FileType go setlocal noet
 augroup END
+
+augroup unite_setting
+    au!
+    au FileType unite call s:unite_my_settings()
+augroup end
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
