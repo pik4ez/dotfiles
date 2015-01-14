@@ -14,7 +14,7 @@ URxvt.scrollBar: false
 URxvt.cursorBlink: true
 
 URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,autocomplete-ALL-the-things
-URxvt.url-select.launcher:  google-chrome-stable
+URxvt.url-select.launcher:  firefox
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate

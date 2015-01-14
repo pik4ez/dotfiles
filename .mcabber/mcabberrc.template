@@ -495,6 +495,14 @@ alias away     = status away
 alias dnd      = status dnd
 alias notavail = status notavail
 alias s = roster search
+
+# contacts
+alias ss = roster search s.seletskiy
+alias sb = roster search a.baranov
+alias sm = roster search m.vladimirov
+alias sa = roster search r.atroshchenko
+alias sr = roster search e.rumyantseva
+
 #alias names = room names
 #alias topic = room topic
 # Set use_mouse to 1 to map mouse buttons like keycodes.
@@ -513,3 +521,7 @@ bind 514 = buffer down
 #alias jmc = room join mcabber@conf.lilotux.net
 # F3 — next unread
 bind 267 = roster unread_next
+# Alt-T go to roster top
+bind M116 = roster top
+# Alt-Q clear screen
+bind M113 = clear

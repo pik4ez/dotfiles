@@ -10,5 +10,4 @@ export GOPATH=/home/$(whoami)/gocode
 export PATH=/home/$(whoami)/bin:/home/$(whoami)/gocode/bin:$PATH
 export DISPLAY=:0
 
-numlockx &
 exec i3

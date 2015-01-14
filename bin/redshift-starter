@@ -1,13 +1,6 @@
 #!/bin/bash
 
-for i in {0..9}; do
-	if xset -q > /dev/null 2>&1; then
-		/usr/bin/redshift -l55.0167:82.9333 -mrandr &
-		exit 0
-	else
-		sleep 1
-	fi
+for s in {0..1}; do
+    /usr/bin/redshift -l55.0167:82.9333 -mvidmode:screen=$s &
 done
-
-echo "Failed to start redshift: no response from X11 server."
-exit 1
+exit 0

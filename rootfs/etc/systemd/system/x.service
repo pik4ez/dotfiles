@@ -2,7 +2,7 @@
 Description=X
 
 [Service]
-ExecStart=/bin/sh /usr/bin/startx
+ExecStart=/usr/bin/startx
 User=tt4
 WorkingDirectory=/home/tt4/
 

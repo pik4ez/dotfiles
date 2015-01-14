@@ -23,8 +23,7 @@ endsnippet
 snippet while "while ( ) { }"
 while (${1:/* condition */}) {
 	${2:// code}
-}
-$0
+}$0
 endsnippet
 
 
@@ -280,4 +279,9 @@ snippet const "class constant"
  * @const $1
  */
 const ${1:NAME} = ${2:VALUE};$0
+endsnippet
+
+
+snippet e "echo with PHP_EOL"
+echo '$0' . PHP_EOL;
 endsnippet
