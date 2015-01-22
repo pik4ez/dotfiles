@@ -525,3 +525,10 @@ bind 267 = roster unread_next
 bind M116 = roster top
 # Alt-Q clear screen
 bind M113 = clear
+# multiline messages
+# Alt-M starts multiline message
+bind M109 = msay begin
+# Alt-N sends multiline message
+bind M110 = msay send
+# Alt-A aborts multiline message
+bind M97 = msay abort

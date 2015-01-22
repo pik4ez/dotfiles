@@ -46,7 +46,6 @@ Plug 'lyokha/vim-xkbswitch'
 call plug#end()
 
 " unite settings
-"let g:unite_split_rule = "botleft"
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_history_yank_file = $HOME.'/.vim/yankring.txt'
 let g:unite_source_grep_command = 'ag'
@@ -66,7 +65,8 @@ call unite#custom#profile('default', 'context', {
 \   'start_insert': 1,
 \   'direction': 'botright',
 \ })
-nmap <Leader>j :Unite -hide-source-names git_cached git_untracked<CR>
+call unite#filters#sorter_default#use(['sorter_selecta'])
+nmap <Leader>j :Unite -hide-source-names git_cached git_untracked buffer<CR>
 nmap <Leader>b :Unite buffer<CR>
 nmap <Leader>a :Unite ash_inbox<CR>
 nmap <Leader>r :UniteResume<CR>
@@ -86,8 +86,7 @@ let g:syntastic_python_checkers = ['python', 'py3kwarn']
 autocmd BufNewFile,BufRead /home/tt4/mnt/* let g:syntastic_php_phpcs_args='--encoding=utf-8 --report=csv --standard=/home/tt4/work/ngs_standards/CodeSniffer/Standards/NGS/'
 
 " ultisnips settings
-let g:UltiSnipsSnippetsDir = '~/.vim/snippets'
-let g:UltiSnipsSnippetDirectories = ['Ultisnips', 'snippets']
+let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -113,12 +112,18 @@ let g:airline#extensions#syntastic#enabled = 1
 function! AirlineFixLength(...)
     let w:airline_section_z = airline#section#create(['%3p%%', 'linenr', '%3v'])
 endfunction
+call airline#remove_statusline_func('AirlineFixLength')
 call airline#add_statusline_func('AirlineFixLength')
 
 " xkb-switch settings
 let g:XkbSwitchEnabled = 1
 let g:XkbSwitchIMappings = ['ru']
 
+" ash settings
+" don't ignore whitespaces
+let g:ash_review_file_flags=''
+
+set tabline=0
 set tabstop=4
 set sw=4
 
@@ -147,9 +152,10 @@ let g:solarized_termcolors=256
 set pastetoggle=<F2>
 
 " mappings
+nmap <Leader>w :w<CR>
+nmap <Leader>d :bd<CR>
 inoremap <C-j> <Esc>
 inoremap <C-t> <C-o>:call search("[)}\"'`\\]]", 'c')<CR><Right>
-nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -158,7 +164,7 @@ nnoremap <silent> <Space><Space> :nohlsearch<CR>
 cnoremap w!! w !sudo tee % >/dev/null
 inoremap <C-L> <C-^>
 cnoremap <C-L> <C-^>
-nnoremap <Leader>c :tabnew $MYVIMRC<CR>
+nnoremap <Leader>c :e $MYVIMRC<CR>
 noremap <F8> :tabdo :bd<CR>
 vmap <Leader>` y:UltiSnipsEdit<CR>Go<CR>snippet HERE<CR>endsnippet<ESC>k]p?HERE<CR>zzciw`
 
@@ -175,67 +181,8 @@ inoremap <C-u> <ESC>viwgUea
 nnoremap <C-n> i<CR><Esc>k$
 nnoremap <C-m> i<CR><Esc>f<space>
 
-" switch to previously selected tab
-let g:lasttab = 1
-nnoremap gl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-
-" tabs settings
-function! MyTabLine()
-    let s = ''
-    let wn = ''
-    let t = tabpagenr()
-    let i = 1
-    while i <= tabpagenr('$')
-        let buflist = tabpagebuflist(i)
-        let winnr = tabpagewinnr(i)
-        let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
-        let s .= '%' . i . 'T'
-        let wn = tabpagewinnr(i, '$')
-        let s .= ' '
-        let s .= i
-        let s .= (i == t ? '%m' : '')
-        let s .= ' '
-        let bufnr = buflist[winnr - 1]
-        let file = bufname(bufnr)
-        let buftype = getbufvar(bufnr, 'buftype')
-
-        if buftype == 'nofile'
-            if file =~ '\/.'
-                let file = substitute(file, '.*\/\ze.', '', '')
-            endif
-        else
-            let file = fnamemodify(file, ':p:.')
-
-            if strlen(file) >= 20
-                let file = substitute(file, '\(.\)[^/]\+/', '\1/', 'g')
-            endif
-        endif
-
-        if file == ''
-            let file = '[No Name]'
-        endif
-
-        let s .= file
-
-        if tabpagewinnr(i, '$') > 1
-            let s .= '('
-            let s .= (tabpagewinnr(i, '$') > 1 ? wn : '')
-            let s .= ')'
-        end
-
-        let s .= ' '
-
-        let i = i + 1
-    endwhile
-
-    let s .= '%#TabLineFill#%T'
-
-    return s
-endfunction
-
-set showtabline=2
-set tabline=%!MyTabLine()
+" switch to previously selected buffer
+nnoremap gl :b#<CR>
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start

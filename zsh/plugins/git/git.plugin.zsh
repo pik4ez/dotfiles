@@ -2,15 +2,17 @@
 alias g='git'
 compdef g=git
 alias gcl='git clone'
-alias gs='git status'
+alias gs='git status -s'
 compdef _git gs=git-status
 alias gst='git stash'
 compdef _git gst=git-stash
 alias gstp='git stash pop'
 compdef _git gstp=git-stash
+alias gstl='git stash list'
+compdef _git gstl=git-stash
 alias gd='git diff'
 compdef _git gd=git-diff
-alias gpull='git pull'
+alias gpl='git pull'
 compdef _git gpull=git-pull
 alias gp='git push'
 compdef _git gp=git-push
@@ -20,6 +22,8 @@ compdef _git gdv=git-diff
 alias gci='git commit -m'
 compdef _git gci=git-commit
 alias gcia='git commit --amend'
+compdef _git gc!=git-commit
+alias gcih='git commit --amend -C HEAD'
 compdef _git gc!=git-commit
 alias gc='git checkout'
 compdef _git gc=git-checkout
@@ -92,13 +96,3 @@ function current_repository() {
   ref=$(git rev-parse --short HEAD 2> /dev/null) || return
   echo $(git remote -v | cut -d':' -f 2)
 }
-
-# these aliases take advantage of the previous function
-alias ggpull='git pull origin $(current_branch)'
-compdef ggpull=git
-alias ggpur='git pull --rebase origin $(current_branch)'
-compdef ggpur=git
-alias ggpush='git push origin $(current_branch)'
-compdef ggpush=git
-alias ggpnp='git pull origin $(current_branch) && git push origin $(current_branch)'
-compdef ggpnp=git
