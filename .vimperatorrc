@@ -7,6 +7,7 @@ nmap K gt
 nmap gl <C-6>
 nmap <F3> n
 nmap d :bd -select lastactive<CR>
+nmap D :bd -select right<CR>
 set gui=none
 set cpt=l
 set defsearch=g
