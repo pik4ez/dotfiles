@@ -159,7 +159,7 @@ cnoremap w!! w !sudo tee % >/dev/null
 inoremap <C-L> <C-^>
 cnoremap <C-L> <C-^>
 nnoremap <Leader>c :e $MYVIMRC<CR>
-noremap <F8> :tabdo :bd<CR>
+noremap <F8> :bufdo bdelete<CR>
 vmap <Leader>` y:UltiSnipsEdit<CR>Go<CR>snippet HERE<CR>endsnippet<ESC>k]p?HERE<CR>zzciw`
 
 " Copy current file path to * buffer
