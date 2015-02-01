@@ -86,7 +86,7 @@ let g:syntastic_python_checkers = ['python', 'py3kwarn']
 autocmd BufNewFile,BufRead /home/tt4/mnt/* let g:syntastic_php_phpcs_args='--encoding=utf-8 --report=csv --standard=/home/tt4/work/ngs_standards/CodeSniffer/Standards/NGS/'
 
 " ultisnips settings
-let g:UltiSnipsSnippetDirectories = ["ultisnips"]
+let g:UltiSnipsSnippetsDir = "~/.vim/ultisnips"
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
