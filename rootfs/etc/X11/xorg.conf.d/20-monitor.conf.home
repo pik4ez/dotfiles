@@ -6,8 +6,16 @@ EndSection
 Section "Device"
 	Identifier "Device0"
 	Driver "radeon"
-	#Option "HWCursor" "off"
-	#Option "SWCursor" "on"
+
+	Option     "AccelMethod"       "exa"      
+	Option     "SWcursor"          "off"    
+	Option     "NoAccel"           "on"    
+	Option     "ColorTiling"       "on"    
+	Option     "ColorTiling2D"     "on"    
+	Option     "EnablePageFlip"    "on"    
+	Option     "EXAVSync"          "on"    
+	Option     "EXAPixmaps"        "on"    
+	Option     "SwapbuffersWait"   "on"    
 EndSection
 
 Section "Screen"
