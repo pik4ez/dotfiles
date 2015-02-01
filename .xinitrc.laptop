@@ -1,4 +1,4 @@
-xset r rate 160 30
+xset r rate 120 60
 setxkbmap -layout "us, ru" -option "grp:caps_toggle,compose:ralt,terminate:ctrl_alt_bksp"
 syndaemon -k -i 0.3 -d &
 xbindkeys
