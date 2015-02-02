@@ -190,18 +190,21 @@ private $_${1:var}${2: = ${3:value}};$0
 endsnippet
 
 
-snippet ve "echo $title . ' ' . var_export($var, true) . PHP_EOL;"
-echo "${1:title} " . var_export($${2:var}, true) . PHP_EOL;
+# Debug
+
+snippet ve "var_export with newline"
+echo '${1:expr} ' . var_export($1, true) . PHP_EOL;
 endsnippet
 
 
-snippet ves "var_export($var);"
-var_export($${1:var});
+snippet ves "usual var_export"
+var_export(${1:var});
 endsnippet
 
 
-snippet ved "die(var_export($var));"
-echo die(var_export($${1:var}));
+snippet ved "var_export with newline and die"
+echo '${1:expr} ' . var_export($1, true) . PHP_EOL;
+die('abort');
 endsnippet
 
 
