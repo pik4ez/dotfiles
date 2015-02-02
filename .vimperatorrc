@@ -1,10 +1,11 @@
 command! -nargs=* G tabopen g <args>
-imap <C-j> <Esc>
+imap <C-J> <Esc>
+nmap <C-J> <Esc>
 nmap a f
 nmap A F
 nmap J gT
 nmap K gt
-nmap gl <C-6>
+nmap gl :b#<CR>
 nmap <F3> n
 nmap d :bd -select lastactive<CR>
 nmap D :bd -select right<CR>
@@ -12,5 +13,5 @@ set gui=none
 set cpt=l
 set defsearch=g
 set focuscontent
-set hintchars=hjklasdfgyuipwertnmzxcvb
+set hintchars=jklasdfgyuiwertzxcvb
 source! /home/tt4/.vimperatorrc.local

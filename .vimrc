@@ -87,6 +87,7 @@ autocmd BufNewFile,BufRead /home/tt4/mnt/* let g:syntastic_php_phpcs_args='--enc
 
 " ultisnips settings
 let g:UltiSnipsSnippetsDir = "~/.vim/ultisnips"
+let g:UltiSnipsSnippetDirectories = ["ultisnips"]
 let g:UltiSnipsEditSplit = 'horizontal'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -160,7 +161,7 @@ inoremap <C-L> <C-^>
 cnoremap <C-L> <C-^>
 nnoremap <Leader>c :e $MYVIMRC<CR>
 noremap <F8> :bufdo bdelete<CR>
-vmap <Leader>` y:UltiSnipsEdit<CR>Go<CR>snippet HERE<CR>endsnippet<ESC>k]p?HERE<CR>zzciw`
+vmap <Leader>` y:UltiSnipsEdit<CR>Go<CR>snippet HERE<CR>endsnippet<ESC>k]p?HERE<CR>zzciw
 
 " Copy current file path to * buffer
 nmap <F4> :let @* = expand("%")<CR>
@@ -237,6 +238,11 @@ augroup END
 augroup php
     au!
     autocmd FileType php setlocal colorcolumn=80,120
+augroup END
+
+augroup html
+    au!
+    autocmd FileType html setlocal et
 augroup END
 
 augroup go
