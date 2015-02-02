@@ -47,6 +47,7 @@ DISABLE_CORRECTION="true"
 plugins=(git history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
+unset GREP_OPTIONS
 
 export PATH=/home/$(whoami)/bin:/home/$(whoami)/gocode/bin:$PATH
 
