@@ -33,6 +33,7 @@ Plug 'scrooloose/syntastic'
 Plug 'SirVer/ultisnips'
 Plug 'kana/vim-smartinput'
 Plug 'kovetskiy/ash.vim'
+Plug 'seletskiy/vim-pythonx'
 
 " Go helper. The gocode package must be installed:
 " go get github.com/nsf/gocode
@@ -96,6 +97,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " youcompleteme settings
 let g:ycm_key_list_select_completion = ['<c-n>']
 let g:ycm_key_list_previous_completion = ['<c-p>']
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
 " airline settings
 set laststatus=2
