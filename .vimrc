@@ -46,6 +46,8 @@ Plug 'lyokha/vim-xkbswitch'
 
 call plug#end()
 
+set tags=./tags;,tags;
+
 " unite settings
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_history_yank_file = $HOME.'/.vim/yankring.txt'
@@ -97,6 +99,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " youcompleteme settings
 let g:ycm_key_list_select_completion = ['<c-n>']
 let g:ycm_key_list_previous_completion = ['<c-p>']
+let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
 " airline settings
@@ -159,10 +162,9 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <silent> <Space><Space> :nohlsearch<CR>
 cnoremap w!! w !sudo tee % >/dev/null
-inoremap <C-L> <C-^>
-cnoremap <C-L> <C-^>
 nnoremap <Leader>c :e $MYVIMRC<CR>
 noremap <F8> :bufdo bdelete<CR>
+nmap <Leader>u :UltiSnipsEdit<CR>
 vmap <Leader>` y:UltiSnipsEdit<CR>Go<CR>snippet HERE<CR>endsnippet<ESC>k]p?HERE<CR>zzciw
 
 " Copy current file path to * buffer
@@ -268,4 +270,4 @@ endif
 augroup vimrc
     au!
     au BufWritePost ~/.vimrc source % | AirlineRefresh
-    augroup end
+augroup end

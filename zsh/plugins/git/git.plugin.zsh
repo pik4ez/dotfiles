@@ -16,9 +16,11 @@ alias gd='git diff'
 compdef _git gd=git-diff
 alias gdc='git diff --cached'
 compdef _git gdc=git-diff
-alias gpl='git pull'
+alias gpl='git pull --rebase'
 compdef _git gpull=git-pull
 alias gp='git push'
+compdef _git gp=git-push
+alias gpo='git push origin'
 compdef _git gp=git-push
 alias gd='git diff'
 gdv() { git diff -w "$@" | view - }
