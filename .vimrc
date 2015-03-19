@@ -34,6 +34,7 @@ Plug 'SirVer/ultisnips'
 Plug 'kana/vim-smartinput'
 Plug 'kovetskiy/ash.vim'
 Plug 'seletskiy/vim-pythonx'
+Plug 'maksimr/vim-jsbeautify'
 
 " Go helper. The gocode package must be installed:
 " go get github.com/nsf/gocode
@@ -101,6 +102,7 @@ let g:ycm_key_list_select_completion = ['<c-n>']
 let g:ycm_key_list_previous_completion = ['<c-p>']
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_seed_identifiers_with_syntax = 1
 
 " airline settings
 set laststatus=2
@@ -234,6 +236,12 @@ augroup vimrcEx
                 \ endif
 augroup END
 
+augroup confluence
+        au!
+        au BufRead /tmp/vimperator-confluence* set ft=html.confluence | :call HtmlBeautify()<CR>
+        au BufRead /tmp/vimperator-confluence* map <buffer> <Leader>t :%s/\v[\ \t\n]+\<p\>([\ \t\n]+\<br\>)?[\ \t\n]+\<\/p\>/<CR>
+augroup end
+
 augroup erlang
     au!
     autocmd FileType erlang setlocal ts=4 sts=4 sw=4 noet
@@ -271,3 +279,21 @@ augroup vimrc
     au!
     au BufWritePost ~/.vimrc source % | AirlineRefresh
 augroup end
+
+" Make pizdato
+nnoremap <Leader>m :call TryToReduce()<CR>
+function! TryToReduce()
+    let startLine = line(".")
+    let content = getline(startLine)
+    let content = substitute(content, "[,\(]", "&\r", "g")
+    let content = substitute(content, "[\)]", "\r&", "g")
+    let content = substitute(content, "\(\r\r\)", "()", "g")
+    let content = substitute(content, "\rarray\r", "array", "g")
+    execute 'normal S'
+    execute 'normal i' . content
+    let currentLine = line(".")
+    let cow = currentLine - startLine + 2
+    execute 'normal ' . (startLine - 1) . 'gg'
+    execute 'normal ' . cow . '=='
+    execute 'normal ' . startLine . 'gg^'
+endfunction

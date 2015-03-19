@@ -14,6 +14,7 @@ set cpt=l
 set defsearch=g
 set focuscontent
 set hintchars=jklasdfgyuiwertzxcvb
+set editor="sh -c 'i3-msg workspace 3 ; vim --remote-tab-wait-silent $0 ; i3-msg workspace back_and_forth'"
 
 hi CompResult -append font-family: Monaco; font-size: 12px;
 hi CompDesc -append font-family: Monaco; font-size: 12px;
