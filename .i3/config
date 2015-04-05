@@ -133,6 +133,7 @@ workspace 3 output xinerama-1
 assign [instance="mcabber"] 1
 assign [instance="mutt"] 1
 assign [class="Google-chrome"] 2
+assign [class="Firefox"] 2
 
 # quick access
 bindsym $mod+bracketright [instance="mcabber"] focus
