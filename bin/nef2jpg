@@ -1,0 +1,22 @@
+#!/bin/sh
+
+time_start=$(date +%s)
+
+total=$(ls -l *.NEF 2>/dev/null | wc -l)
+if [[ $total -eq 0 ]]; then
+    echo 'ERROR: NEF files not found'
+    exit 1
+fi
+
+current=1
+mkdir -p jpg
+for file in *.NEF; do
+    echo -ne "Processing ${current} of ${total}"\\r
+    filename=${file%.*}
+    dcraw -cw "${filename}.NEF" | cjpeg -quality 100 > "jpg/${filename}.jpg"
+    let current+=1
+done
+
+time_end=$(date +%s)
+echo "Photos processed: ${current}"
+echo "Time total: $((time_end - time_start)) s"
