@@ -9,17 +9,55 @@ nmap gl :b#<CR>
 nmap <F3> n
 nmap d :bd -select lastactive<CR>
 nmap D :bd -select right<CR>
+
 set gui=none
+set wildmode=full
 set cpt=l
 set defsearch=g
 set focuscontent
 set hintchars=jklasdfgyuiwertzxcvb
 set editor="sh -c 'i3-msg workspace 3 ; vim --remote-tab-wait-silent $0 ; i3-msg workspace back_and_forth'"
+set visualbell
 
 hi CompResult -append font-family: Monaco; font-size: 12px;
 hi CompDesc -append font-family: Monaco; font-size: 12px;
 hi CmdLine>* font-family: Monaco; font-size: 12px;
 hi StatusLine -append font-family: Monaco; font-size: 12px;
 hi Hint font-size: 12px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px; font-family: Monaco
+
+" Hide command line mappings
+noremap <silent> <F8> :js toggle_bottombar()<CR>
+noremap : :js toggle_bottombar('on')<CR>:
+noremap o :js toggle_bottombar('on')<CR>o
+noremap O :js toggle_bottombar('on')<CR>O
+noremap w :js toggle_bottombar('on')<CR>w
+noremap b :js toggle_bottombar('on')<CR>b
+noremap t :js toggle_bottombar('on')<CR>t
+noremap T :js toggle_bottombar('on')<CR>t
+noremap / :js toggle_bottombar('on')<CR>/
+cnoremap <CR> <CR>:js toggle_bottombar('off')<CR>
+cnoremap <Esc> <Esc>:js toggle_bottombar('off')<CR>
+
+" Hide command line js
+:js << EOF
+function toggle_bottombar(p) {
+    var bb = document.getElementById('liberator-bottombar');
+    if (!bb)
+        return;
+    if (p == 'on'){
+        bb.style.height = '';
+        bb.style.overflow = '';
+        return;
+    }
+    if (p == 'off'){
+        bb.style.height = '0px';
+        bb.style.overflow = 'hidden';
+        return;
+    }
+    bb.style.height = (bb.style.height == '') ? '0px' : '';
+    bb.style.overflow = (bb.style.height == '') ? '' : 'hidden';
+}
+toggle_bottombar();
+EOF
 
 source! /home/tt4/.vimperatorrc.local

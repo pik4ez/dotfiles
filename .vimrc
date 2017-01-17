@@ -14,31 +14,25 @@ call plug#begin('~/.vim/bundle')
 
 " custom plugins
 Plug 'L9'
-Plug 'tpope/vim-fugitive'
-Plug 'seletskiy/vim-refugi'
 Plug 'pik4ez/vim-colors-solarized'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'edsono/vim-matchit', { 'for': 'html' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'mattn/emmet-vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc', { 'do': 'make' }
+Plug 'Shougo/neocomplete'
+Plug 'Shougo/neosnippet'
 Plug 'yuku-t/unite-git'
 Plug 'sickill/vim-pasta'
-Plug 'bling/vim-airline'
-Plug 'Valloric/YouCompleteMe'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/syntastic'
-Plug 'SirVer/ultisnips'
 Plug 'kana/vim-smartinput'
-Plug 'kovetskiy/ash.vim'
 Plug 'seletskiy/vim-pythonx'
-Plug 'maksimr/vim-jsbeautify'
-
-" Go helper. The gocode package must be installed:
-" go get github.com/nsf/gocode
-Plug 'Blackrush/vim-gocode'
+Plug 'nvie/vim-flake8'
+Plug 'fatih/vim-go'
 
 " xkb-switch required
 " see https://github.com/ierton/xkb-switch
@@ -46,6 +40,9 @@ Plug 'Blackrush/vim-gocode'
 Plug 'lyokha/vim-xkbswitch'
 
 call plug#end()
+
+" gui font for mac
+set guifont=Monaco\ for\ Powerline:h12
 
 set tags=./tags;,tags;
 
@@ -72,13 +69,11 @@ call unite#custom#profile('default', 'context', {
 call unite#filters#sorter_default#use(['sorter_selecta'])
 nmap <Leader>j :Unite -hide-source-names git_cached git_untracked buffer<CR>
 nmap <Leader>b :Unite buffer<CR>
-nmap <Leader>a :Unite ash_inbox<CR>
 nmap <Leader>r :UniteResume<CR>
 function! s:unite_my_settings()
-    call unite#custom#alias('ash_review', 'split', 'ls')
-    imap <silent><buffer><expr> <C-P> unite#do_action('split')
-    imap <buffer> <C-J> <Plug>(unite_select_next_line)
-    imap <buffer> <C-K> <Plug>(unite_select_previous_line)
+    imap <buffer> <C-n> <Plug>(unite_select_next_line)
+    imap <buffer> <C-p> <Plug>(unite_select_previous_line)
+    imap <buffer> <C-j> <Plug>(unite_exit)
 endfunction
 
 " surround settings
@@ -86,23 +81,87 @@ let g:surround_45 = "\1function: \1(\r)"
 
 " syntastic settings
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_python_checkers = ['python', 'py3kwarn']
+let g:syntastic_python_checkers = ['flake8']
 autocmd BufNewFile,BufRead /home/tt4/mnt/* let g:syntastic_php_phpcs_args='--encoding=utf-8 --report=csv --standard=/home/tt4/work/ngs_standards/CodeSniffer/Standards/NGS/'
 
-" ultisnips settings
-let g:UltiSnipsSnippetsDir = "~/.vim/ultisnips"
-let g:UltiSnipsSnippetDirectories = ["ultisnips"]
-let g:UltiSnipsEditSplit = 'horizontal'
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" neocomplete settings start
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-" youcompleteme settings
-let g:ycm_key_list_select_completion = ['<c-n>']
-let g:ycm_key_list_previous_completion = ['<c-p>']
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_seed_identifiers_with_syntax = 1
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "") . "\<CR>"
+endfunction
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" neocomplete settings end
+
+" neosnippet settings start
+" Disable built-in snippets.
+let g:neosnippet#disable_runtime_snippets = {
+    \   '_' : 1,
+    \ }
+" Path to snippets.
+let g:neosnippet#snippets_directory = '~/.vim/neosnippets'
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <expr><TAB>
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+"if has('conceal')
+  "set conceallevel=2 concealcursor=niv
+"endif
+" neosnippet settings end
 
 " airline settings
 set laststatus=2
@@ -121,9 +180,8 @@ call airline#add_statusline_func('AirlineFixLength')
 let g:XkbSwitchEnabled = 1
 let g:XkbSwitchIMappings = ['ru']
 
-" ash settings
-" don't ignore whitespaces
-let g:ash_review_file_flags=''
+" disable scratch window
+set completeopt-=preview
 
 set showtabline=0
 set tabstop=4
@@ -149,6 +207,10 @@ set listchars=eol:¶,extends:»,tab:│·,trail:·"
 let g:solarized_visibility="low"
 let g:solarized_contrast="normal"
 let g:solarized_termcolors=256
+let g:solarized_italic=0
+
+" disable visual bells
+set vb
 
 " press F2 to paste without indent magick
 set pastetoggle=<F2>
@@ -156,18 +218,31 @@ set pastetoggle=<F2>
 " mappings
 nmap <Leader>w :w<CR>
 nmap <Leader>d :bd<CR>
+nmap gt :bn<CR>
+nmap gT :bp<CR>
+nmap <Leader>u :NeoSnippetEdit<CR>
 inoremap <C-j> <Esc>
 inoremap <C-t> <C-o>:call search("[)}\"'`\\]]", 'c')<CR><Right>
-nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <C-l> :left<CR>
 nnoremap <silent> <Space><Space> :nohlsearch<CR>
 cnoremap w!! w !sudo tee % >/dev/null
 nnoremap <Leader>c :e $MYVIMRC<CR>
 noremap <F8> :bufdo bdelete<CR>
-nmap <Leader>u :UltiSnipsEdit<CR>
-vmap <Leader>` y:UltiSnipsEdit<CR>Go<CR>snippet HERE<CR>endsnippet<ESC>k]p?HERE<CR>zzciw
+
+" cd to work dirs
+command! Wa cd ~/work/avito
+command! Was cd ~/work/avito-segm
+command! Wav cd ~/work/avito-vagrant
+command! Wse cd ~/work/service-eventiy
+command! Wspa cd ~/work/service-product-ads
+command! Wspac cd ~/work/service-product-ads-client
+command! Wscm cd ~/work/service-category-mapper
+command! Wscmc cd ~/work/service-category-mapper-client
+command! Wau cd ~/work/avito-utils
+command! Waus cd ~/work/avito-utils-sphinx
+command! Wspi cd ~/work/service-phone-info
 
 " Copy current file path to * buffer
 nmap <F4> :let @* = expand("%")<CR>
@@ -260,6 +335,11 @@ augroup END
 augroup go
     au!
     autocmd FileType go setlocal noet
+augroup END
+
+augroup python
+    au!
+    autocmd FileType python setlocal colorcolumn=79,120
 augroup END
 
 augroup unite_setting
