@@ -1,0 +1,15 @@
+{
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.noselect": false,
+
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "html",
+    "javascript",
+    "javascript.jsx",
+    "json",
+    "typescript",
+    "typescriptreact"
+  ],
+  "tsserver.formatOnType": false
+}
