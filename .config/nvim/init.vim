@@ -20,16 +20,26 @@ au!
         let g:fzf_prefer_tmux = 0
         let g:fzf_layout = { 'down': '40%' }
 
-        func! _select_file()
-            call fzf#run(fzf#wrap({'source': 'prols', 'options': '--sort --no-exact'}))
-        endfunc!
+        command! -bang -nargs=? -complete=dir Files
+            \ call fzf#vim#files(
+                \ <q-args>,
+                \ fzf#vim#with_preview({'options': '--sort --no-exact'}),
+                \ <bang>0
+            \ )
 
-        func! _select_buffer()
-            call fzf#vim#buffers({'options': '--sort --no-exact'})
-        endfunc!
+        noremap <silent> <leader>f :Files<CR>
+        noremap <silent> <leader>b :Buffers<CR>
 
-        noremap <silent> <leader>f :call _select_file()<CR>
-        noremap <silent> <leader>b :call _select_buffer()<CR>
+        function! RipgrepFzf(query, fullscreen)
+          let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+          let initial_command = printf(command_fmt, shellescape(a:query))
+          let reload_command = printf(command_fmt, '{q}')
+          let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+          call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+        endfunction
+
+        command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+        noremap <silent> <leader>r :RG<CR>
 
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
         let g:go_fmt_command = "goimports"
@@ -39,8 +49,6 @@ au!
         let dart_html_in_string=v:true
         let g:dart_style_guide = 2
         let g:dart_format_on_save = 1
-
-    let g:python3_host_prog = expand('/home/tt4/.pyenv/shims/python')
 
     Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
         let g:pymode = 1
@@ -108,6 +116,10 @@ au!
         vmap { S}i<esc>
         vmap } S}%a<esc>
         vmap " S"i<esc>
+
+    Plug 'hashivim/vim-terraform'
+        let g:terraform_align=1
+        let g:terraform_fmt_on_save=1
 augroup end
 
 call plug#end()
@@ -129,7 +141,7 @@ colorscheme NeoSolarized
 set rnu
 set nowrap
 set list
-set lcs=trail:·,tab:\|\· " <- trailing space here
+set lcs=trail:¬∑,tab:\|\¬∑ " <- trailing space here
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
